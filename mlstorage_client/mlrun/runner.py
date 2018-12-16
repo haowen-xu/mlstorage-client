@@ -366,6 +366,10 @@ def run_experiment(client_args):
 
         # run the program
         heartbeat_job = HeartbeatJob('send heartbeat', api, doc)
+        config_job = CollectJsonDictJob(
+            'collect config', api, doc, filename='config.json',
+            field='config'
+        )
         default_config_job = CollectJsonDictJob(
             'collect default config', api, doc, filename='config.defaults.json',
             field='default_config'
@@ -382,6 +386,7 @@ def run_experiment(client_args):
             with maybe_run_tensorboard(client_args, api, doc) as tb_uri, \
                     tb_webui.set_uri(tb_uri), \
                     heartbeat_job.run_in_background(), \
+                    config_job.run_in_background(), \
                     default_config_job.run_in_background(), \
                     result_job.run_in_background(), \
                     webui_job.run_in_background(), \
@@ -407,6 +412,8 @@ def run_experiment(client_args):
             # collect the JSON dict for the last time
             retry(lambda: webui_job.run_once(True),
                   webui_job.name)
+            retry(lambda: config_job.run_once(True),
+                  config_job.name)
             retry(lambda: default_config_job.run_once(True),
                   default_config_job.name)
             retry(lambda: result_job.run_once(True),

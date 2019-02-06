@@ -237,6 +237,7 @@ class ConsoleDuplicator(object):
     def on_output(self, buf):
         os.write(self.fd, buf)
         os.write(self.dup_fd, buf)
+        os.fsync(self.fd)
 
 
 @contextmanager

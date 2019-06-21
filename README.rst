@@ -1,3 +1,7 @@
+**THIS UTILITY HAS BEEN INCLUDED IN THE NEW ML-ESSENTIALS PROJECT**
+
+`ML Essentials <https://github.com/haowen-xu/ml-essentials>`
+
 MLStorage Client
 ================
 
@@ -30,7 +34,3 @@ The script file, ``train,py``, will be copied to the storage directory.
 Meanwhile, the data file, ``data.csv``, will be linked to that directory
 (on Unix, a symbolic link is created; on Windows, a copied file is created).
 The name of the experiment will automatically chosen to be ``train.py``.
-
-
-Python Client
-~~~~~~~~~~~~~
